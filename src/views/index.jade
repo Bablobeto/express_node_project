@@ -1,0 +1,56 @@
+extends layout
+
+block content
+  h1 Create | TODO Task
+  hr
+  
+  // Form for creating a new task
+  form(method='POST' action='/todos')
+    div
+      label(for='title') Title:
+      br
+      input(type='text', name='title', placeholder='Enter title')
+    br
+    div
+      label(for='description') Description:
+      br
+      textarea(name='description', placeholder='Enter description', required='required')
+    br
+    button(type='submit') Add Todo Task
+
+  // Section for listing TODO tasks
+  h1 List | TODO Task
+  hr
+
+  table
+    thead
+      tr
+        th #
+        th &nbsp;
+        th(width='100' style="text-align:left") Title
+        th(width='200' style='text-align:left') Description
+        th(width='100' style="text-align:left") Completed
+        th(style='text-align:left') Created at
+        th &nbsp;
+    tbody
+      each task in tasks
+        tr
+          td #{task.id}
+          td(style='cursor: pointer;') 
+            <a href="/todos/#{task.id}/edit"><i>Edit</i></a>
+          td(width='100') #{task.title}
+          td(width='200' style='text-align:left') #{task.description}
+          td(style="text-align:left") #{task.completed ? 'true' : 'false'}
+          td #{task.created_at}
+          td
+            <form method="get" action="/todos/#{task.id}">
+            button(type='submit') Delete
+            </form>
+
+  // Form to clear all tasks
+  br
+  form(method='POST' action='/todos/clear')
+    button(type='submit') Clear All Tasks
+
+  p Welcome to CRUD-NODE-PROJECT!
+  p Developed by #{name}

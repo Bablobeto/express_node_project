@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  h1= "Update | Task"
+  a(href='/todos' style='text-decoration: none;') &lt;&lt; Go back
+  br
+  br
+
+  form(method='POST' action='')
+    div
+      label(for='title') Title:
+      br
+      input(type='text', name='title', value=task.title, placeholder='Enter title', required='required')
+    br
+    div
+      label(for='description') Description:
+      br
+      textarea(name='description', placeholder='Enter description', required='required') #{task.description}
+    br
+    button(type='submit') Update Task
